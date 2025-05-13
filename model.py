@@ -222,8 +222,8 @@ def getBraggConditionLatticePeriodicity(theta):
 
 # Main Code
 if __name__ == '__main__':
-    Na = 1361                                               # Nombre de diffuseurs
-    Nd = 40                                                    # Nombre de disques
+    Na = 6361                                               # Nombre de diffuseurs
+    Nd = 400                                                    # Nombre de disques
     Rd = 9                                                      # Rayon de chaque disque
     a = 0.25                                                    # Epaisseur des disques
     theta = np.pi*6/180                                    # Angle d'incidence dans xOz par rapport à l'axe z

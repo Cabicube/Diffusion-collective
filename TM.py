@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from model import getBraggConditionLatticePeriodicity
 
 
-def reflectivity_detuning(disk_density, d, theta_i, Na, Nd, Rd, a, show=True):
-    detuning_list = np.linspace(-10, 10, 101)
+def reflectivity_detuning(disk_density, d, theta_i, Na, Nd, a, show=True):
+    detuning_list = np.linspace(-50, 50, 1001)
     R_list = list()
 
     for detuning in detuning_list:
@@ -32,12 +32,12 @@ def reflectivity_detuning(disk_density, d, theta_i, Na, Nd, Rd, a, show=True):
     return detuning_list, R_list
 
 
-def detuning_of_max_reflecitivy_distance(disk_density, theta_i, Na, Nd, Rd, a):
+def detuning_of_max_reflecitivy_distance(disk_density, theta_i, Na, Nd, a):
     d_Bragg = getBraggConditionLatticePeriodicity(theta_i)
-    d_list = np.linspace(d_Bragg - 0.002, d_Bragg + 0.002, 51)
+    d_list = np.linspace(d_Bragg - 0.001, d_Bragg + 0.005, 31)
     detuning_max = list()
     for d in d_list:
-        detuning_list, R_list = reflectivity_detuning(disk_density, d, theta_i, Na, Nd, Rd, a, show=False)
+        detuning_list, R_list = reflectivity_detuning(disk_density, d, theta_i, Na, Nd, a, show=False)
         R_max_index = np.argmax(R_list)
         detuning_max.append(detuning_list[R_max_index])
 
@@ -52,16 +52,16 @@ def detuning_of_max_reflecitivy_distance(disk_density, theta_i, Na, Nd, Rd, a):
     plt.show()
 
 
-disk_density = 3.25
-Nd = 10
+disk_density = 0.25
+Nd = 400
+a = 0.25
+
 Rd = 9
-a = 0.06
 Na = int(disk_density * np.pi*(Rd**2)*a * Nd)
 print(Na)
-# Na = 10000
-# disk_density = (Na / Nd) / (np.pi * (Rd ** 2) * a)
-theta_i = np.pi * 2 / 180
-d = getBraggConditionLatticePeriodicity(theta_i)
+theta_i = np.pi * 60 / 180
+d_Bragg = getBraggConditionLatticePeriodicity(theta_i)
+d = d_Bragg + 0.002
 
-reflectivity_detuning(disk_density, d, theta_i, Na, Nd, Rd, a)
-# detuning_of_max_reflecitivy_distance(disk_density, theta_i, Na, Nd, Rd, a)
+# reflectivity_detuning(disk_density, d, theta_i, Na, Nd, a)
+detuning_of_max_reflecitivy_distance(disk_density, theta_i, Na, Nd, a)
